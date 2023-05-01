@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+        <SelfContained>false</SelfContained>
+        <DebugType>embedded</DebugType>
+	    <PublishDir Condition="'$(RuntimeIdentifier)' == 'linux-x64'">..\out-linux-x64\plugins\$(MSBuildProjectName)\</PublishDir>
+	    <PublishDir Condition="'$(RuntimeIdentifier)' == 'linux-arm64'">..\out-linux-arm64\plugins\$(MSBuildProjectName)\</PublishDir>
+	    <PublishDir Condition="'$(RuntimeIdentifier)' == 'win-x64'">..\out-win-x64\plugins\$(MSBuildProjectName)\</PublishDir>
+        <PathMap>$(MSBuildProjectDirectory)=$(MSBuildProjectName)</PathMap>
+        <Platforms>AnyCPU;x64</Platforms>
+        <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AssettoServer\AssettoServer.csproj">
+            <Private>false</Private>
+            <ExcludeAssets>runtime</ExcludeAssets>
+        </ProjectReference>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <None Remove="lua\catmouse.lua" />
+        <EmbeddedResource Include="lua\catmouse.lua" />
+        <None Remove="lua\teleport.lua" />
+        <EmbeddedResource Include="lua\teleport.lua" />
+    </ItemGroup>
+
+</Project>
